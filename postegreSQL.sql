@@ -35,14 +35,13 @@ Is 'chave estrangeira da tabela';
 
 --Nome: dependentes; Tipo: TABLE; Schema: elsmari; 
 
-create table dependente(
-  cpf_funcionario char not null,
-  nome_dependente varchar not null,
-  sexo char,
-  data_nascimento date,
-  parentesco varchar
-  CONSTRAINT cpf_funcionario PRIMARY KEY (cpf_funcionario, nome_dependente)
-  
+CREATE TABLE elmasri.dependente (
+                cpf_funcionario CHAR(11) NOT NULL,
+                nome_dependente VARCHAR(15) NOT NULL,
+                sexo CHAR(1),
+                data_nascimento DATE,
+                parentesco VARCHAR(15),
+                CONSTRAINT cpf_funcionario PRIMARY KEY (cpf_funcionario, nome_dependente)
 );
 
 --Comentários:
@@ -59,18 +58,19 @@ Is 'chave composta da tabela';
 
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
 
-create table departamento(
-   numero_departamento integer not null,
-   nome_departamento varchar not null,
-   cpf_gerente char not null,
-   data_inicio_gerente date,
-   CONSTRAINT numero_departamento PRIMARY KEY (numero_departamento)
+CREATE TABLE elmasri.departamento (
+                numero_departamento INTEGER NOT NULL,
+                nome_departamento VARCHAR(15) NOT NULL DEFAULT nextval('elmasri.departamento_nome_departamento_seq'),
+                cpf_gerente CHAR(11) NOT NULL,
+                data_inicio_gerente DATE,
+                CONSTRAINT numero_departamento PRIMARY KEY (numero_departamento)
 );
 
 --Criando chave única (UNIQUE KEY):
 CREATE UNIQUE INDEX nome_departamento
 ON elmasri.departamento
 (nome_departamento);
+
 
 --Comentários:
 COMMENT ON TABLE departamento
@@ -92,12 +92,12 @@ Is 'chave unica da tabela';
 
 --Nome: localizacoes_departamento; Tipo: TABLE; Schema: elsmari; 
 
-create table localizacoes_departamento(
-   numero_departamento integer not null,
-   local varchar not null,
-   CONSTRAINT null PRIMARY KEY (numero_departamento, local)
-   
+CREATE TABLE elmasri.localizacoes_departamento (
+                numero_departamento INTEGER NOT NULL,
+                local VARCHAR(15) NOT NULL,
+                CONSTRAINT null PRIMARY KEY (numero_departamento, local)
 );
+
 
 --Comentários:
 COMMENT ON TABLE localizacoes_departamento
@@ -114,12 +114,12 @@ Is 'chave composta da tabela';
 
 --Nome: projeto; Tipo: TABLE; Schema: elsmari; 
 
-create table projeto(
-   numero_projeto integer not null,
-   nome_projeto varchar not null unique,
-   local_projeto varchar,
-   numero_departamento integer not null,
-   CONSTRAINT numero_projeto PRIMARY KEY (numero_projeto)
+CREATE TABLE elmasri.projeto (
+                numero_projeto INTEGER NOT NULL,
+                nome_projeto VARCHAR(15) NOT NULL,
+                numero_departamento INTEGER NOT NULL,
+                local_projeto VARCHAR(15),
+                CONSTRAINT numero_projeto PRIMARY KEY (numero_projeto)
 );
 
 --Criando chave única (UNIQUE KEY):
@@ -144,12 +144,14 @@ Is 'chave unica da tabela';
 
 
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
-create table trabalha_em(
-   cpf_funcionario char not null,
-   numero_projeto integer not null,
-   horas decimal (10, 2) not null,
-   CONSTRAINT cpf_funcionario PRIMARY KEY (cpf_funcionario, numero_projeto)
- );
+
+CREATE TABLE elmasri.trabalha_em (
+                cpf_funcionario CHAR(11) NOT NULL,
+                numero_projeto INTEGER NOT NULL,
+                horas NUMERIC(3,1) NOT NULL,
+                CONSTRAINT cpf_funcionario PRIMARY KEY (cpf_funcionario, numero_projeto)
+);
+ 
  
  --Comentários:
 COMMENT ON TABLE trabalha_em
