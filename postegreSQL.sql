@@ -6,7 +6,7 @@
 
 --Nome: funcionario; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.funcionario (
+CREATE TABLE funcionario (
                 cpf CHAR(11) NOT NULL DEFAULT nextval('elmasri.funcionario_cpf_seq'),
                 primeiro_nome VARCHAR(15) NOT NULL,
                 nome_meio CHAR(1),
@@ -35,7 +35,7 @@ Is 'chave estrangeira da tabela';
 
 --Nome: dependentes; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.dependente (
+CREATE TABLE dependente (
                 cpf_funcionario CHAR(11) NOT NULL,
                 nome_dependente VARCHAR(15) NOT NULL,
                 sexo CHAR(1),
@@ -58,7 +58,7 @@ Is 'chave composta da tabela';
 
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.departamento (
+CREATE TABLE departamento (
                 numero_departamento INTEGER NOT NULL,
                 nome_departamento VARCHAR(15) NOT NULL DEFAULT nextval('elmasri.departamento_nome_departamento_seq'),
                 cpf_gerente CHAR(11) NOT NULL,
@@ -92,7 +92,7 @@ Is 'chave unica da tabela';
 
 --Nome: localizacoes_departamento; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.localizacoes_departamento (
+CREATE TABLE localizacoes_departamento (
                 numero_departamento INTEGER NOT NULL,
                 local VARCHAR(15) NOT NULL,
                 CONSTRAINT null PRIMARY KEY (numero_departamento, local)
@@ -114,7 +114,7 @@ Is 'chave composta da tabela';
 
 --Nome: projeto; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.projeto (
+CREATE TABLE projeto (
                 numero_projeto INTEGER NOT NULL,
                 nome_projeto VARCHAR(15) NOT NULL,
                 numero_departamento INTEGER NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE elmasri.projeto (
 
 --Criando chave única (UNIQUE KEY):
 CREATE UNIQUE INDEX nome_projeto
-ON elmasri.projeto
+ON projeto
 ( nome_projeto );
 
 --Comentários:
@@ -145,7 +145,7 @@ Is 'chave unica da tabela';
 
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
 
-CREATE TABLE elmasri.trabalha_em (
+CREATE TABLE trabalha_em (
                 cpf_funcionario CHAR(11) NOT NULL,
                 numero_projeto INTEGER NOT NULL,
                 horas NUMERIC(3,1) NOT NULL,
@@ -169,73 +169,73 @@ Is 'chave composta da tabela';
 
 --Dados tabela funcionario:
 
-INSERT INTO elmasri.funcionario VALUES ('joao','B', 'silva', '12345678966', '09-01-1965', 'Rua das Flores 751 São Paulo SP', 'M', 30.000, '33344555587', 5);
-INSERT INTO elmasri.funcionario VALUES ('Fernando','T', 'Wong', '33344555587', '08-12-1955', 'Rua das Lapa 34 São Paulo SP', 'M', 40.000, '88866555576', 5);
-INSERT INTO elmasri.funcionario VALUES ('Alice','J', 'Zelaya', '99988777767', '19-01-1968', 'Rua SOuza Lima 35 Curitiba PR', 'F', 25.000, '98765432168', 4);
-INSERT INTO elmasri.funcionario VALUES ('Jeniffer','S', 'Souza', '98765432168', '20-06-1941', 'Av Arthur de Lima 54 Santo Andre SP', 'F', 43.000, '88866555576', 4);
-INSERT INTO elmasri.funcionario VALUES ('Ronaldo','K', 'Lima', '66688444476', '15-09-1965', 'Rua Rebouças 65 Piracicaba SP', 'M', 38.000, '33344555587', 5);
-INSERT INTO elmasri.funcionario VALUES ('Joice','A', 'Leite', '45345345376', '31-07-1972', 'Av Lucas Obes 74 São Paulo SP', 'F', 25.000, '33344555587', 5);
-INSERT INTO elmasri.funcionario VALUES ('André','V', 'Pereira', '98798798733', '29-03-1969', 'Rua Timbira 35 São Paulo SP', 'M', 25.000, '98765432168', 4);
-INSERT INTO elmasri.funcionario VALUES ('Jorge','E', 'Brito', '88866555576', '10-11-1937', 'Rua do Horto 35 São Paulo SP', 'M', 55.000, 'null', 1);
+INSERT INTO funcionario VALUES ('joao','B', 'silva', '12345678966', '09-01-1965', 'Rua das Flores 751 São Paulo SP', 'M', 30.000, '33344555587', 5);
+INSERT INTO funcionario VALUES ('Fernando','T', 'Wong', '33344555587', '08-12-1955', 'Rua das Lapa 34 São Paulo SP', 'M', 40.000, '88866555576', 5);
+INSERT INTO funcionario VALUES ('Alice','J', 'Zelaya', '99988777767', '19-01-1968', 'Rua SOuza Lima 35 Curitiba PR', 'F', 25.000, '98765432168', 4);
+INSERT INTO funcionario VALUES ('Jeniffer','S', 'Souza', '98765432168', '20-06-1941', 'Av Arthur de Lima 54 Santo Andre SP', 'F', 43.000, '88866555576', 4);
+INSERT INTO funcionario VALUES ('Ronaldo','K', 'Lima', '66688444476', '15-09-1965', 'Rua Rebouças 65 Piracicaba SP', 'M', 38.000, '33344555587', 5);
+INSERT INTO funcionario VALUES ('Joice','A', 'Leite', '45345345376', '31-07-1972', 'Av Lucas Obes 74 São Paulo SP', 'F', 25.000, '33344555587', 5);
+INSERT INTO funcionario VALUES ('André','V', 'Pereira', '98798798733', '29-03-1969', 'Rua Timbira 35 São Paulo SP', 'M', 25.000, '98765432168', 4);
+INSERT INTO funcionario VALUES ('Jorge','E', 'Brito', '88866555576', '10-11-1937', 'Rua do Horto 35 São Paulo SP', 'M', 55.000, 'null', 1);
 
 
 
 --Dados tabela dependentes:
 
-INSERT INTO elmasri.dependente VALUES ('33344555587', 'Alicia', F, 05-04-1986, 'Filha');
-INSERT INTO elmasri.dependente VALUES ('33344555587', 'Janaina', F, 05-04-1958, 'Esposa');
-INSERT INTO elmasri.dependente VALUES ('98765432168', 'Antonio', M, 05-04-1942, 'Marido');
-INSERT INTO elmasri.dependente VALUES ('12345678966', 'Michael', M, 05-04-1988, 'Filho');
-INSERT INTO elmasri.dependente VALUES ('12345678966', 'Alicia', F, 05-04-1988, 'Filha');
-INSERT INTO elmasri.dependente VALUES ('12345678966', 'Elizabeth', F, 05-05-1967, 'Esposa');
+INSERT INTO dependente VALUES ('33344555587', 'Alicia', F, 05-04-1986, 'Filha');
+INSERT INTO dependente VALUES ('33344555587', 'Janaina', F, 05-04-1958, 'Esposa');
+INSERT INTO dependente VALUES ('98765432168', 'Antonio', M, 05-04-1942, 'Marido');
+INSERT INTO dependente VALUES ('12345678966', 'Michael', M, 05-04-1988, 'Filho');
+INSERT INTO dependente VALUES ('12345678966', 'Alicia', F, 05-04-1988, 'Filha');
+INSERT INTO dependente VALUES ('12345678966', 'Elizabeth', F, 05-05-1967, 'Esposa');
 
 
 
 --Dados tabela departamento:
 
-INSERT INTO elmasri.departamento VALUES ('Pesquisa', 5, '33344555587', 22-05-1988);
-INSERT INTO elmasri.departamento VALUES ('Administração', 4, '98765432168', 01-01-1995);
-INSERT INTO elmasri.departamento VALUES ('Matriz', 1, '88866555576', 19-06-1981);
+INSERT INTO departamento VALUES ('Pesquisa', 5, '33344555587', 22-05-1988);
+INSERT INTO departamento VALUES ('Administração', 4, '98765432168', 01-01-1995);
+INSERT INTO departamento VALUES ('Matriz', 1, '88866555576', 19-06-1981);
 
 
 
 --Dados tabela localizacoes_departamento:
 
-INSERT INTO elmasri.localizacoes_departamento VALUES (1, 'São Paulo');
-INSERT INTO elmasri.localizacoes_departamento VALUES (4, 'Mauá');
-INSERT INTO elmasri.localizacoes_departamento VALUES (5, 'Santo Andre');
-INSERT INTO elmasri.localizacoes_departamento VALUES (5, 'Itu');
-INSERT INTO elmasri.localizacoes_departamento VALUES (5, 'São Paulo');
+INSERT INTO localizacoes_departamento VALUES (1, 'São Paulo');
+INSERT INTO localizacoes_departamento VALUES (4, 'Mauá');
+INSERT INTO localizacoes_departamento VALUES (5, 'Santo Andre');
+INSERT INTO localizacoes_departamento VALUES (5, 'Itu');
+INSERT INTO localizacoes_departamento VALUES (5, 'São Paulo');
 
 
 
 --Dados tabela projeto:
 
-INSERT INTO elmasri.projeto VALUES ('ProdutoX', 1, 'Santo André', 5);
-INSERT INTO elmasri.projeto VALUES ('ProdutoY', 2, 'Itu', 5);
-INSERT INTO elmasri.projeto VALUES ('ProdutoZ', 3, 'São Paulo', 5);
-INSERT INTO elmasri.projeto VALUES ('Informatização', 10, 'Mauá', 4);
-INSERT INTO elmasri.projeto VALUES ('Reorganização', 20, 'São Paulo', 1);
-INSERT INTO elmasri.projeto VALUES ('Novosbenefícios', 30, 'Mauá', 4);
+INSERT INTO projeto VALUES ('ProdutoX', 1, 'Santo André', 5);
+INSERT INTO projeto VALUES ('ProdutoY', 2, 'Itu', 5);
+INSERT INTO projeto VALUES ('ProdutoZ', 3, 'São Paulo', 5);
+INSERT INTO projeto VALUES ('Informatização', 10, 'Mauá', 4);
+INSERT INTO projeto VALUES ('Reorganização', 20, 'São Paulo', 1);
+INSERT INTO projeto VALUES ('Novosbenefícios', 30, 'Mauá', 4);
 
 --Dados tabela trabalha_em:
 
-INSERT INTO elmasri.trabalha_em VALUES ('1234567866', 1, 32,5);
-INSERT INTO elmasri.trabalha_em VALUES ('1234567866', 2, 7,5);
-INSERT INTO elmasri.trabalha_em VALUES ('66688444476', 3, 40);
-INSERT INTO elmasri.trabalha_em VALUES ('45345345376', 1, 20);
-INSERT INTO elmasri.trabalha_em VALUES ('45345345376', 2, 20);
-INSERT INTO elmasri.trabalha_em VALUES ('33344555587', 2, 10);
-INSERT INTO elmasri.trabalha_em VALUES ('33344555587', 3, 10);
-INSERT INTO elmasri.trabalha_em VALUES ('33344555587', 10, 10);
-INSERT INTO elmasri.trabalha_em VALUES ('33344555587', 20, 10);
-INSERT INTO elmasri.trabalha_em VALUES ('99988777767', 30, 30);
-INSERT INTO elmasri.trabalha_em VALUES ('99988777767', 10, 10);
-INSERT INTO elmasri.trabalha_em VALUES ('98798798733', 10, 35);
-INSERT INTO elmasri.trabalha_em VALUES ('98798798733', 30, 5);
-INSERT INTO elmasri.trabalha_em VALUES ('98765432168', 30, 20);
-INSERT INTO elmasri.trabalha_em VALUES ('98765432168', 20, 15);
-INSERT INTO elmasri.trabalha_em VALUES '88866555576', 20, null);
+INSERT INTO trabalha_em VALUES ('1234567866', 1, 32,5);
+INSERT INTO trabalha_em VALUES ('1234567866', 2, 7,5);
+INSERT INTO trabalha_em VALUES ('66688444476', 3, 40);
+INSERT INTO trabalha_em VALUES ('45345345376', 1, 20);
+INSERT INTO trabalha_em VALUES ('45345345376', 2, 20);
+INSERT INTO trabalha_em VALUES ('33344555587', 2, 10);
+INSERT INTO trabalha_em VALUES ('33344555587', 3, 10);
+INSERT INTO trabalha_em VALUES ('33344555587', 10, 10);
+INSERT INTO trabalha_em VALUES ('33344555587', 20, 10);
+INSERT INTO trabalha_em VALUES ('99988777767', 30, 30);
+INSERT INTO trabalha_em VALUES ('99988777767', 10, 10);
+INSERT INTO trabalha_em VALUES ('98798798733', 10, 35);
+INSERT INTO trabalha_em VALUES ('98798798733', 30, 5);
+INSERT INTO trabalha_em VALUES ('98765432168', 30, 20);
+INSERT INTO trabalha_em VALUES ('98765432168', 20, 15);
+INSERT INTO trabalha_em VALUES '88866555576', 20, null);
 
 
 
@@ -243,51 +243,57 @@ INSERT INTO elmasri.trabalha_em VALUES '88866555576', 20, null);
 --Fazendo o relacionamento entre tabelas:
 
 
-ALTER TABLE elmasri.funcionario ADD CONSTRAINT funcionario_funcionario_fk
+ALTER TABLE funcionario ADD CONSTRAINT funcionario_fk
 FOREIGN KEY (cpf_supervisor)
-REFERENCES elmasri.funcionario (cpf)
+REFERENCES funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.dependente ADD CONSTRAINT funcionario_dependente_fk
+
+ALTER TABLE dependente ADD CONSTRAINT dependente_fk
 FOREIGN KEY (cpf_funcionario)
 REFERENCES elmasri.funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.departamento ADD CONSTRAINT funcionario_departamento_fk
+
+ALTER TABLE departamento ADD CONSTRAINT departamento_fk
 FOREIGN KEY (cpf_gerente)
-REFERENCES elmasri.funcionario (cpf)
+REFERENCES funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT funcionario_trabalha_em_fk
+
+ALTER TABLE trabalha_em ADD CONSTRAINT trabalha_em_fk
 FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario (cpf)
+REFERENCES funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.projeto ADD CONSTRAINT departamento_projeto_fk
+
+ALTER TABLE projeto ADD CONSTRAINT projeto_fk
 FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento)
+REFERENCES departamento (numero_departamento)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
+
+ALTER TABLE localizacoes_departamento ADD CONSTRAINT localizacoes_departamento_fk
 FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento)
+REFERENCES departamento (numero_departamento)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT projeto_trabalha_em_fk
+
+ALTER TABLE trabalha_em ADD CONSTRAINT trabalha_em_fk
 FOREIGN KEY (numero_projeto)
-REFERENCES elmasri.projeto (numero_projeto)
+REFERENCES projeto (numero_projeto)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
