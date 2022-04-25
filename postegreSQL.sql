@@ -171,7 +171,7 @@ Is 'chave composta da tabela';
 
 INSERT INTO elmasri.funcionario
 (primero_nome, nome_meio, ultimo_nome, cpf, data_dascimento, endereco, sexo, salario, cpf_supervisor, numero_departamento)
-values
+VALUES
 ('joao','B', 'silva', '12345678966', '09-01-1965', 'Rua das Flores 751 São Paulo SP', 'M', 30.000, '33344555587', 5);
 ('Fernando','T', 'Wong', '33344555587', '08-12-1955', 'Rua das Lapa 34 São Paulo SP', 'M', 40.000, '88866555576', 5);
 ('Alice','J', 'Zelaya', '99988777767', '19-01-1968', 'Rua SOuza Lima 35 Curitiba PR', 'F', 25.000, '98765432168', 4);
@@ -187,7 +187,7 @@ values
 
 INSERT INTO elmasri.dependente
 (cpf_funcionario, nome_dependente, sexo, data_nascimento, parentesco)
-values
+VALUES
 ('33344555587', 'Alicia', F, 05-04-1986, 'Filha');
 ('33344555587', 'Tiago', M, 05-04-1983, 'Filho');
 ('33344555587', 'Janaina', F, 05-04-1958, 'Esposa');
@@ -202,7 +202,7 @@ values
 
 INSERT INTO elmasri.departamento
 (nome_departamento, numero_departamento, cpf_gerente, data_inicio_gerente)
-values
+VALUES
 ('Pesquisa', 5, '33344555587', 22-05-1988);
 ('Administração', 4, '98765432168', 01-01-1995);
 ('Matriz', 1, '88866555576', 19-06-1981);
@@ -213,7 +213,7 @@ values
 
 INSERT INTO elmasri.localizacoes_departamento
 (numero_departamtno, local)
-values
+VALUES
 (1, 'São Paulo');
 (4, 'Mauá');
 (5, 'Santo Andre');
@@ -226,7 +226,7 @@ values
 
 INSERT INTO elmasri.projeto
 (nome_projeto, numero_projeto, local_projeto, numero_projeto)
-values
+VALUES
 ('ProdutoX', 1, 'Santo André', 5);
 ('ProdutoY', 2, 'Itu', 5);
 ('ProdutoZ', 3, 'São Paulo', 5);
@@ -238,7 +238,7 @@ values
 
 INSERT INTO elmasri.trabalha_em
 (cpf_funcionario, numero_projeto, horas)
-values
+VALUES
 ('1234567866', 1, 32,5);
 ('1234567866', 2, 7,5);
 ('66688444476', 3, 40);
