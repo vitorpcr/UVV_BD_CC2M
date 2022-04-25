@@ -169,7 +169,7 @@ Is 'chave composta da tabela';
 
 --Dados tabela funcionario:
 
-insert into funcionario
+INSERT INTO elmasri.funcionario
 (primero_nome, nome_meio, ultimo_nome, cpf, data_dascimento, endereco, sexo, salario, cpf_supervisor, numero_departamento)
 values
 ('joao','B', 'silva', '12345678966', '09-01-1965', 'Rua das Flores 751 São Paulo SP', 'M', 30.000, '33344555587', 5);
@@ -185,7 +185,7 @@ values
 
 --Dados tabela dependentes:
 
-insert into dependente
+INSERT INTO elmasri.dependente
 (cpf_funcionario, nome_dependente, sexo, data_nascimento, parentesco)
 values
 ('33344555587', 'Alicia', F, 05-04-1986, 'Filha');
@@ -200,7 +200,7 @@ values
 
 --Dados tabela departamento:
 
-insert into departamento
+INSERT INTO elmasri.departamento
 (nome_departamento, numero_departamento, cpf_gerente, data_inicio_gerente)
 values
 ('Pesquisa', 5, '33344555587', 22-05-1988);
@@ -211,7 +211,7 @@ values
 
 --Dados tabela localizacoes_departamento:
 
-insert into localizacoes_departamento
+INSERT INTO elmasri.localizacoes_departamento
 (numero_departamtno, local)
 values
 (1, 'São Paulo');
@@ -224,7 +224,7 @@ values
 
 --Dados tabela projeto:
 
-insert into projeto
+INSERT INTO elmasri.projeto
 (nome_projeto, numero_projeto, local_projeto, numero_projeto)
 values
 ('ProdutoX', 1, 'Santo André', 5);
@@ -236,7 +236,7 @@ values
 
 --Dados tabela trabalha_em:
 
-insert into trabalha_em
+INSERT INTO elmasri.trabalha_em
 (cpf_funcionario, numero_projeto, horas)
 values
 ('1234567866', 1, 32,5);
