@@ -1,5 +1,5 @@
 ## Diagrama Elmasri
-Esse diagrama foi feito pelo SQL Power Architect.
+***Esse diagrama foi feito pelo SQL Power Architect.***
 
 **Passo a Passo:**
 
