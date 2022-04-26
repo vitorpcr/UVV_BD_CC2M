@@ -22,9 +22,9 @@ CREATE TABLE funcionario (
                 cpf_supervisor CHAR(11) NOT NULL,
                 numero_departamento INTEGER NOT NULL,
                 PRIMARY KEY (cpf),
-   
+); 
 ```
-);
+
 
 
 
