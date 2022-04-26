@@ -83,43 +83,48 @@ CREATE TABLE trabalha_em (
 
 
 
-ALTER TABLE funcionario 
-ADD FOREIGN KE (cpf_supervisor)
-REFERENCES funcionario (cpf);
+ALTER TABLE funcionario ADD CONSTRAINT funcionario_funcionario_fk
+FOREIGN KEY (cpf_supervisor)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
+ALTER TABLE dependente ADD CONSTRAINT funcionario_dependente_fk
+FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
-ALTER TABLE dependente 
-ADD FOREIGN KEY (cpf_funcionario)
-REFERENCES funcionario(cpf);
+ALTER TABLE departamento ADD CONSTRAINT funcionario_departamento_fk
+FOREIGN KEY (cpf_gerente)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
+ALTER TABLE projeto ADD CONSTRAINT departamento_projeto_fk
+FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
-ALTER TABLE departamento
-ADD FOREIGN KEY (cpf_gerente)
-REFERENCES funcionario (cpf);
+ALTER TABLE localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
+FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
+ALTER TABLE trabalha_em ADD CONSTRAINT projeto_trabalha_em_fk
+FOREIGN KEY (numero_projeto)
+REFERENCES projeto (numero_projeto)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
-ALTER TABLE elmasri.trabalha_em 
-ADD FOREIGN KEY (cpf_funcionario)
-REFERENCES funcionario (cpf);
+ALTER TABLE trabalha_em ADD CONSTRAINT trabalha_em_fk
+FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
-
-ALTER TABLE elmasri.projeto 
-ADD FOREIGN KEY (numero_departamento)
-REFERENCES departamento (numero_departamento);
-
-
-ALTER TABLE localizacoes_departamento 
-ADD FOREIGN KEY (numero_departamento)
-REFERENCES departamento (numero_departamento);
-
-
-ALTER TABLE trabalha_em 
-ADD FOREIGN KEY (numero_projeto)
-REFERENCES projeto (numero_projeto);
-
-ALTER TABLE elmasri.trabalha_em 
-ADD FOREIGN KEY (cpf_funcionario)
-REFERENCES funcionario (cpf);
 
 
 
