@@ -5,7 +5,6 @@ Autor:  **Vitor Petindá**, CC2M
 ***
 
 
-***
 ## Diagrama Elmasri
 Esse diagrama foi feito pelo SQL Power Architect.
 
