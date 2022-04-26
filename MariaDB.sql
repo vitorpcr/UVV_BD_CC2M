@@ -14,6 +14,17 @@ CREATE TABLE funcionario (
 );
 
 
+COMMENT ON TABLE funcionario
+IS 'tabela criada para funcionarios';
+
+COMMENT ON COLUMN funcionario.cpf
+Is 'chave primaria da tabela';
+
+COMMENT ON COLUMN funcionario.cpf_supervisor
+Is 'chave estrangeira da tabela';
+
+
+
 CREATE TABLE dependente (
                 cpf_funcionario CHAR(11) NOT NULL,
                 nome_dependente VARCHAR(15) NOT NULL,
@@ -23,6 +34,16 @@ CREATE TABLE dependente (
                 PRIMARY KEY (cpf_funcionario, nome_dependente)
                
 );
+
+COMMENT ON TABLE dependentes
+IS 'tabela criada para dependentes';
+
+COMMENT ON COLUMN dependentes.nome_dependente
+Is 'chave primaria da tabela';
+
+COMMENT ON COLUMN dependentes.cpf_funcionario
+Is 'chave composta da tabela';
+
 
 
 
@@ -35,6 +56,19 @@ CREATE TABLE departamento (
                 PRIMARY KEY (numero_departamento)
                
 );
+
+
+COMMENT ON TABLE departamento
+IS 'tabela criada para departamentos';
+
+COMMENT ON COLUMN departamento.numero_departamento
+Is 'chave primaria da tabela';
+
+COMMENT ON COLUMN departamento.cpf_gerente
+Is 'chave estrangeira da tabela';
+
+COMMENT ON COLUMN departamento.nome_departamento
+Is 'chave unica da tabela';
 
 
 
@@ -53,6 +87,16 @@ CREATE TABLE localizacoes_departamento (
 );
 
 
+COMMENT ON TABLE localizacoes_departamento
+IS 'tabela criada para as localizações dos departamentos';
+
+COMMENT ON COLUMN localizacoes_departamento.local
+Is 'chave primaria da tabela';
+
+COMMENT ON COLUMN localizacoes_departamento.numero_departamento
+Is 'chave composta da tabela';
+
+
 
 CREATE TABLE projeto (
                 numero_projeto INTEGER NOT NULL,
@@ -62,6 +106,15 @@ CREATE TABLE projeto (
                 PRIMARY KEY (numero_projeto)
 );
 
+
+COMMENT ON TABLE projeto
+IS 'tabela criada para os projetos
+COMMENT ON COLUMN projeto.numero_projeto
+Is 'chave primaria da tabela';
+COMMENT ON COLUMN projeto.numero_departamento
+Is 'chave estrangeira da tabela';
+COMMENT ON COLUMN projeto.nome_projeto
+Is 'chave unica da tabela';
 
 
 
@@ -79,6 +132,17 @@ CREATE TABLE trabalha_em (
                
                 
 );
+
+COMMENT ON TABLE trabalha_em
+IS 'tabela criada para os projetos
+COMMENT ON COLUMN trabalha_em.cpf_funcionario
+Is 'chave primaria da tabela';
+COMMENT ON COLUMN trabalha_em.numero_projeto
+Is 'chave primaria da tabela';
+COMMENT ON COLUMN trabalha_em.cpf_funcionario
+Is 'chave estrangeira da tabela';
+COMMENT ON COLUMN trabalha_em.numero_projeto
+Is 'chave estrangeira da tabela';
 
 
 
