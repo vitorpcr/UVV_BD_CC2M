@@ -59,7 +59,7 @@ CREATE TABLE projeto (
                 nome_projeto VARCHAR(15) NOT NULL,
                 numero_departamento INTEGER NOT NULL,
                 local_projeto VARCHAR(15),
-                CONSTRAINT numero_projeto PRIMARY KEY (numero_projeto)
+                PRIMARY KEY (numero_projeto)
 );
 
 
@@ -72,67 +72,61 @@ ON projeto
 
 CREATE TABLE trabalha_em (
 
-               /// cpf_funcionario mudar e colocar os dados///
+                cpf_funcionario CHAR(11) NOT NULL,
                 numero_projeto INTEGER NOT NULL,
-                horas NUMERIC(3,1) NOT NULL
+                horas NUMERIC(3,1) NOT NULL,
+                PRIMARY KEY(cpf_funcionario, numero_projeto),
+               
                 
 );
 
 
 
 
-ALTER TABLE elmasri.funcionario 
-ADD CONSTRAINT funcionario_fk
-FOREIGN KEY (cpf_supervisor)
-REFERENCES elmasri.funcionario (cpf);
+ALTER TABLE funcionario 
+ADD FOREIGN KE (cpf_supervisor)
+REFERENCES funcionario (cpf);
 
 
-ALTER TABLE elmasri.dependente 
-ADD CONSTRAINT funcionario_dependente_fk
-FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario(cpf);
+ALTER TABLE dependente 
+ADD FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario(cpf);
 
 
-ALTER TABLE elmasri.departamento
-ADD CONSTRAINT funcionario_departamento_fk
-FOREIGN KEY (cpf_gerente)
-REFERENCES elmasri.funcionario (cpf);
+ALTER TABLE departamento
+ADD FOREIGN KEY (cpf_gerente)
+REFERENCES funcionario (cpf);
 
 
 ALTER TABLE elmasri.trabalha_em 
-ADD CONSTRAINT funcionario_trabalha_em_fk
-FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario (cpf);
+ADD FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf);
 
 
 ALTER TABLE elmasri.projeto 
-ADD CONSTRAINT departamento_projeto_fk
-FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento);
+ADD FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento);
 
 
-ALTER TABLE elmasri.localizacoes_departamento 
-ADD CONSTRAINT departamento_localizacoes_departamento_fk
-FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento);
+ALTER TABLE localizacoes_departamento 
+ADD FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento);
 
 
-ALTER TABLE elmasri.trabalha_em 
-ADD CONSTRAINT projeto_trabalha_em_fk
-FOREIGN KEY (numero_projeto)
-REFERENCES elmasri.projeto (numero_projeto);
+ALTER TABLE trabalha_em 
+ADD FOREIGN KEY (numero_projeto)
+REFERENCES projeto (numero_projeto);
 
 ALTER TABLE elmasri.trabalha_em 
-ADD CONSTRAINT funcionario_trabalha_em_fk
-FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario (cpf);
+ADD FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf);
 
 
 
 
 INSERT INTO elmasri.funcionario
 (primeiro_nome, nome_meio, ultimo_nome, cpf, data_nascimento, endereco, sexo, salario, cpf_supervisor, numero_departamento)
-values
+VALUES
 ('joao','B', 'silva', '12345678966', '09-01-1965', 'RuadasFlores751SãoPaul SP', 'M', 30.000, '33344555587', 5);
 ('Fernando','T', 'Wong', '33344555587', '08-12-1955', 'RuadaLapa34 São Paulo SP', 'M', 40.000, '88866555576', 5);
 ('Alice','J', 'Zelaya', '99988777767', '19-01-1968', 'RuaSOuz Lima35Curitiba PR', 'F', 25.000, '98765432168', 4);
