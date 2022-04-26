@@ -95,7 +95,7 @@ Is 'chave unica da tabela';
 CREATE TABLE elmasri.localizacoes_departamento (
                 numero_departamento INTEGER NOT NULL,
                 local VARCHAR(15) NOT NULL,
-                CONSTRAINT null PRIMARY KEY (numero_departamento, local)
+                CONSTRAINT localizacao_departamento_pk PRIMARY KEY (numero_departamento, local)
 );
 
 
@@ -126,6 +126,7 @@ CREATE TABLE elmasri.projeto (
 CREATE UNIQUE INDEX nome_projeto
 ON elmasri.projeto
 ( nome_projeto );
+
 
 --Comentários:
 COMMENT ON TABLE projeto
@@ -167,8 +168,8 @@ Is 'chave composta da tabela';
 --Dados tabela funcionario:
 
 INSERT INTO elmasri.funcionario
-(primero_nome, nome_meio, ultimo_nome, cpf, data_dascimento, endereco, sexo, salario, cpf_supervisor, numero_departamento)
-values
+(primeiro_nome, nome_meio, ultimo_nome, cpf, data_nascimento, endereco, sexo, salario, cpf_supervisor, numero_departamento)
+VALUES
 ('joao','B', 'silva', '12345678966', '09-01-1965', 'Rua das Flores 751 São Paulo SP', 'M', 30.000, '33344555587', 5);
 ('Fernando','T', 'Wong', '33344555587', '08-12-1955', 'Rua das Lapa 34 São Paulo SP', 'M', 40.000, '88866555576', 5);
 ('Alice','J', 'Zelaya', '99988777767', '19-01-1968', 'Rua SOuza Lima 35 Curitiba PR', 'F', 25.000, '98765432168', 4);
@@ -250,9 +251,11 @@ VALUES
 ('98765432168', 20, 15);
 ('88866555576', 20, null);
 
+
+
 --Fazendo o relacionamento entre tabelas:
 
-ALTER TABLE elmasri.funcionario ADD CONSTRAINT funcionario_funcionario_fk
+ALTER TABLE elmasri.funcionario ADD CONSTRAINT funcionario_fk
 FOREIGN KEY (cpf_supervisor)
 REFERENCES elmasri.funcionario (cpf)
 ON DELETE NO ACTION
@@ -268,13 +271,6 @@ NOT DEFERRABLE;
 
 ALTER TABLE elmasri.departamento ADD CONSTRAINT funcionario_departamento_fk
 FOREIGN KEY (cpf_gerente)
-REFERENCES elmasri.funcionario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT funcionario_trabalha_em_fk
-FOREIGN KEY (cpf_funcionario)
 REFERENCES elmasri.funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
@@ -297,6 +293,13 @@ NOT DEFERRABLE;
 ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT projeto_trabalha_em_fk
 FOREIGN KEY (numero_projeto)
 REFERENCES elmasri.projeto (numero_projeto)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT funcionario_trabalha_em_fk
+FOREIGN KEY (cpf_funcionario)
+REFERENCES elmasri.funcionario (cpf)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
