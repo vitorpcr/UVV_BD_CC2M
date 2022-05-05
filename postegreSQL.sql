@@ -1,16 +1,38 @@
 --
 --PostgreSQL datase PSET1
 --
+CREATE USER vitor WITH
+ NOSUPERUSER
+ CREATEDB
+ CREATEROLE
+ LOGIN
+ ENCRYPTED PASSWORD '123456'
+ 
+ --CRIANDO O BANCO DE DADOS:
+ CREATE DATABASE uvv WITH
+  owner = vitor
+  template = template0
+  encodinng ='UTF-8'
+  lc_collate = 'pt_BR_UTF_8'
+  lc_ctypet= 'pt_BR_UTF_8';
+  
+  --conexão em banco uvv com usuario vitor
+  foto
+  
+  CERATE SCHEMA elmasri AUTHORIZATION vitor;
+  
+  ALTER USER vitor
+  SET SEARCH_PATH elmasri, '$user', public;
 
 -- Criando tabelas:
 
 --Nome: funcionario; Tipo: TABLE; Schema: elsmari; 
 
 CREATE TABLE elmasri.funcionario (
-                cpf CHAR(11) NOT NULL DEFAULT nextval('elmasri.funcionario_cpf_seq'),
-                primeiro_nome VARCHAR(15) NOT NULL,
+                cpf CHAR(11)  CONSTRAINT nn_func_cpf NOT NULL ,
+                primeiro_nome VARCHAR(15) CONSTRAINT nn_func_prim_nome NOT NULL,
                 nome_meio CHAR(1),
-                ultimo_nome VARCHAR(15) NOT NULL,
+                ultimo_nome VARCHAR(15) CONSTRAINT nn_func_ult_nome NOT NULL,
                 data_nascimento DATE,
                 endereco VARCHAR(30),
                 sexo VARCHAR(1),
@@ -30,6 +52,23 @@ Is 'chave primaria da tabela';
 
 COMMENT ON COLUMN funcionario.cpf_supervisor
 Is 'chave estrangeira da tabela';
+
+
+--Fazendo o relacionamento entre tabelas:
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_funcionario
+PRIMARY KEY (cpf);
+
+ALTER TABLE funcionario ADD CONSTRAINT fk_cpf_func_cpf
+PRIMARY KEY (cpf_funcionario);
+
+--constraints adicionais:
+
+ALTER TABLE funcionario ADD CONSTRAINT ck_func_sexo
+CHECK (sexo IN ('M', 'F'));
+
+ALTER TABLE funcionario ADD CONSTRAINT ck_func_salario
+CHECK (salario >= 0)
 
 
 
@@ -54,6 +93,13 @@ Is 'chave primaria da tabela';
 COMMENT ON COLUMN dependentes.cpf_funcionario
 Is 'chave composta da tabela';
 
+--Fazendo o relacionamento entre tabelas:
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+PRIMARY KEY (cpf_funcionario, nome_dependente);
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+PRIMARY KEY (cpf_funcionario) REFERENCES funcionario (cpf);
 
 
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
@@ -65,12 +111,6 @@ CREATE TABLE elmasri.departamento (
                 data_inicio_gerente DATE,
                 CONSTRAINT numero_departamento PRIMARY KEY (numero_departamento)
 );
-
---Criando chave única (UNIQUE KEY):
-CREATE UNIQUE INDEX nome_departamento
-ON elmasri.departamento
-(nome_departamento);
-
 
 --Comentários:
 COMMENT ON TABLE departamento
@@ -85,6 +125,24 @@ Is 'chave estrangeira da tabela';
 COMMENT ON COLUMN departamento.nome_departamento
 Is 'chave unica da tabela';
 
+--Fazendo o relacionamento entre tabelas:
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_departamento
+PRIMARY KEY (numero_departamento);
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+FOREIGN KEY (cpf_gerente) REFERENCES funcionario(cpf);
+
+--Criando chave única (UNIQUE KEY):
+CREATE UNIQUE INDEX dept_nome_depat
+ON departametno
+( nome_departamento );
+
+
+--constraints adicionais:
+
+ALTER TABLE departamento ADD CONSTRAINT ck_dept_num_dept
+CHECK (numero_departamento >= 2)
 
 
 
@@ -108,6 +166,14 @@ Is 'chave primaria da tabela';
 
 COMMENT ON COLUMN localizacoes_departamento.numero_departamento
 Is 'chave composta da tabela';
+
+
+ALTER TABLE localizacoes_departamento ADD CONSTRAINT pk_loca_dept
+PRIMARY KEY (numero_departamento);
+
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+FOREIGN KEY (cpf_funcionario, nome_dependente);
 
 
 
@@ -142,6 +208,17 @@ COMMENT ON COLUMN projeto.nome_projeto
 Is 'chave unica da tabela';
 
 
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+PRIMARY KEY (cpf_funcionario, nome_dependente);
+
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+FOREGIN KEY (cpf_funcionario, nome_dependente);
+
+
+
+
 --Nome: departamento; Tipo: TABLE; Schema: elsmari; 
 
 CREATE TABLE elmasri.trabalha_em (
@@ -161,6 +238,18 @@ Is 'chave composta da tabela';
 
 COMMENT ON COLUMN trabalha_em.numero_projeto
 Is 'chave composta da tabela';
+
+
+
+ALTER TABLE funcionario ADD CONSTRAINT pk_dependente
+FOREIGN KEY (cpf_funcionario) REFERENCES funcionario (cpf);;
+
+
+ALTER TABLE trabalha_em ADD CONSTRAINT pk_trab_em_cpf_func_cpf
+PRIMARY KEY (cpf_funcionario, numero_projeto) REFERENCES funcionario (cpf);
+
+
+
 
 
 --inserindo dados nas tabelas:
@@ -253,53 +342,6 @@ VALUES
 
 
 
---Fazendo o relacionamento entre tabelas:
 
-ALTER TABLE elmasri.funcionario ADD CONSTRAINT funcionario_fk
-FOREIGN KEY (cpf_supervisor)
-REFERENCES elmasri.funcionario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
 
-ALTER TABLE elmasri.dependente ADD CONSTRAINT funcionario_dependente_fk
-FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
 
-ALTER TABLE elmasri.departamento ADD CONSTRAINT funcionario_departamento_fk
-FOREIGN KEY (cpf_gerente)
-REFERENCES elmasri.funcionario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE elmasri.projeto ADD CONSTRAINT departamento_projeto_fk
-FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE elmasri.localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
-FOREIGN KEY (numero_departamento)
-REFERENCES elmasri.departamento (numero_departamento)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT projeto_trabalha_em_fk
-FOREIGN KEY (numero_projeto)
-REFERENCES elmasri.projeto (numero_projeto)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE elmasri.trabalha_em ADD CONSTRAINT trabalha_em_fk
-FOREIGN KEY (cpf_funcionario)
-REFERENCES elmasri.funcionario (cpf)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
