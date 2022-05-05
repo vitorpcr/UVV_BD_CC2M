@@ -16,8 +16,8 @@ CREATE USER vitor WITH
   owner = vitor
   template = template0
   encodinng ='UTF-8'
-  lc_collate = 'pt_BR_UTF_8'
-  lc_ctypet= 'pt_BR_UTF_8';
+  lc_collate = 'pt_BR.UTF_8'
+  lc_ctypet= 'pt_BR.UTF_8';
   
   --conexão em banco uvv com usuario vitor
   foto
