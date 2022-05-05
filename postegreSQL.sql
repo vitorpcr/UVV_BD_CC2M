@@ -8,6 +8,9 @@ CREATE USER vitor WITH
  LOGIN
  ENCRYPTED PASSWORD '123456'
  
+ drop database if exists uvv;
+ drop user if exists vitor; 
+ 
  --CRIANDO O BANCO DE DADOS:
  CREATE DATABASE uvv WITH
   owner = vitor
