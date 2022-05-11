@@ -101,6 +101,57 @@ GROUP BY D.nome_departamento, P.nome_projeto
 ORDER BY D.nome_departamento ASC, P.nome_projeto ASC;
 
 
+SELECT D.nome_departamento AS "Nome departamento",
+AVG(F.salario) AS "Media salarial"
+FROM departamento AS D, funcionario AS F
+GROUP BY D.nome_departamento
+ORDER BY D.nome_departamento ASC;
+
+
+SELECT CONCAT(F.primeiro_nome, ' ',F.nome_meio, ' ', F.ultimo_nome) AS "Nome funcionario",
+P.nome_projeto AS "Nome projeto", 
+CAST(50 * T.horas AS MONEY) AS "valor"
+FROM trabalha_em AS T 
+projeto AS P
+INNER JOIN funcionario AS F
+ON T.cpf_funcionario = F.cpf
+ORDER BY "Nome funcionario" ASC;
+
+SELECT CONCAT(F.primeiro_nome, ' ',F.nome_meio, ' ', F.ultimo_nome) AS "Nome funcionario",
+D.nome_departamento AS "Nome departamento",
+P.nome_projeto AS "Nome projeto"
+FROM departamento AS D, projeto AS P, funcionario AS F
+INNER JOIN trablha_em AS T
+ON T.cpf_funcionario = F.cpf
+WHERE T.horas IS NULL;
+
+
+SELECT CONCAT(F.primeiro_nome, ' ',F.nome_meio, ' ', F.ultimo_nome) AS "Nome funcionario",
+CASE F.sexo
+WHEN 'M' THEN 'masculino' 
+WHEN 'F' THEN 'feminino' 
+END AS "sexo",
+DATE_PART('year', AGE(CURRENT_DATE, F.data_nascimento)) AS "idade",
+FROM dependente AS DP
+ORDER BY "idade" DESC;
+
+
+SELECT D.nome_departamento AS "Nome departamento",
+COUNT(F.cpf) AS "Numero funcionarios"
+FROM departamento AS D, funcionario AS F
+GROUP BY D.numero_departamento
+ORDER BY "Nome departamento" ASC;
+
+
+SELECT CONCAT(F.primeiro_nome, ' ',F.nome_meio, ' ', F.ultimo_nome) AS "Nome funcionario",
+P.nome_projeto AS "Nome projeto",
+D.nome_departamento AS "Nome departamento"
+FROM departamento AS D, projeto AS P, trabalha_em AS T
+RIGHT OUTER JOIN funcionario AS F
+ON T.cpf_funcionario = F.cpf
+ORDER BY "Nome funcionario" ASC, "Nome departamento" ASC;
+
+
 
 
 
